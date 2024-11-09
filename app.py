@@ -5,8 +5,6 @@ import google.generativeai as genai
 import os
 from PIL import Image
 
-
-
 # Set the environment variable
 genai.configure(api_key="API_KEY") #use Secrets when deploy on GC Run
 # Function to extract text from PDF using pdfplumber
@@ -46,15 +44,11 @@ def generic_question(question):
     except Exception as e:
         return f"An error occurred: {e}"
 
-
-
 # Streamlit app
 def main():
 
     model = genai.GenerativeModel("gemini-1.5-flash")
     st.title("Travel Agency with Gemini")
-
-
     
     # Ask a generic question
     st.header("What are your travel needs?")
@@ -69,7 +63,6 @@ def main():
     # Add a Gemini Chat history object to Streamlit session state
     if "chat" not in st.session_state:
         st.session_state.chat = model.start_chat(history = [])
-
 
     # Create a container for chat messages
     chat_container = st.container()
@@ -94,9 +87,6 @@ def main():
         with chat_container:
           with st.chat_message("assistant"):
               st.markdown(response.text)
-
-
-
 
     with st.sidebar:
     # Ask about a PDF content
@@ -131,8 +121,6 @@ def main():
                   st.write(answer)
               else:
                   st.warning("I am an AI, I read data not minds. Please enter a question to get an answer.")
-
-
 
 if __name__ == "__main__":
     main()
